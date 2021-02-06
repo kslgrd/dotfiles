@@ -8,3 +8,4 @@ alias c="clear"
 # Directories
 alias dotfiles="cd $DOTFILES"
 alias sites="cd $HOME/Sites"
+alias vault="cd $HOME/Vault"
