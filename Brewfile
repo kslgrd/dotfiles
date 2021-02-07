@@ -16,6 +16,7 @@ brew 'httpie'
 brew 'lolcat'
 brew 'mackup'
 brew 'mas'
+brew 'source-highlight'
 brew 'tree'
 
 # Dev

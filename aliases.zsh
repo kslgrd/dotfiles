@@ -7,5 +7,11 @@ alias c="clear"
 
 # Directories
 alias dotfiles="cd $DOTFILES"
+alias library="cd $HOME/Library"
 alias sites="cd $HOME/Sites"
 alias vault="cd $HOME/Vault"
+
+# Functions
+cless() {
+  LESSOPEN='| source-highlight --failsafe --out-format=esc256 -o STDOUT -i %s 2>/dev/null ' less -R "$@"
+}
