@@ -17,7 +17,7 @@
 
     <key>ProgramArguments</key>
     <array>
-      <string>/Users/keith/.dotfiles/scripts/sync-repo</string>
+      <string>/Users/keith/.dotfiles/script/sync-repo</string>
       <string>-p</string>
       <string>/Users/keith/Vault</string>
     </array>
