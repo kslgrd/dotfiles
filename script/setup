@@ -1,0 +1,200 @@
+#!/usr/bin/env bash
+# https://betterdev.blog/minimal-safe-bash-script-template/
+
+set -Eeuo pipefail
+trap cleanup SIGINT SIGTERM ERR EXIT
+
+# script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd -P)
+
+usage() {
+  cat <<EOF
+Usage: $(basename "${BASH_SOURCE[0]}") [-h] [-v] [-f] [-a] [-b] [-c] [-d] [-p]
+
+Setup your computer with all your dotfile junk.
+
+Available options:
+
+-h, --help      Print this help and exit
+-v, --verbose   Print script debug info
+-f, --fresh     Do everything (for setting up new machines)
+
+-a, --setup-automations    Enable all Launchd agents
+-b, --bundle-homebrew      Install Homebrew apps and dependencies
+-c, --clone-repos          Clone git repos
+-d, --link-dotfiles        Symlink dotfiles
+-p, --source-macos-prefs   Source macOS prefs (reloads shell)
+EOF
+  exit
+}
+
+cleanup() {
+  trap - SIGINT SIGTERM ERR EXIT
+  # script cleanup here
+}
+
+setup_colors() {
+  if [[ -t 2 ]] && [[ -z "${NO_COLOR-}" ]] && [[ "${TERM-}" != "dumb" ]]; then
+    NOFORMAT='\033[0m' RED='\033[0;31m' GREEN='\033[0;32m' ORANGE='\033[0;33m' BLUE='\033[0;34m' PURPLE='\033[0;35m' CYAN='\033[0;36m' YELLOW='\033[1;33m'
+  else
+    NOFORMAT='' RED='' GREEN='' ORANGE='' BLUE='' PURPLE='' CYAN='' YELLOW=''
+  fi
+}
+
+msg() {
+  echo >&2 -e "${1-}"
+}
+
+die() {
+  local msg=$1
+  local code=${2-1} # default exit status 1
+  msg "$msg"
+  exit "$code"
+}
+
+parse_params() {
+  # default values of variables set from params
+  setup_automations=0
+  bundle_homebrew=0
+  clone_repos=0
+  link_dotfiles=0
+  source_prefs=0
+
+  while :; do
+    case "${1-}" in
+    -h | --help) usage ;;
+    -v | --verbose) set -x ;;
+    --no-color) NO_COLOR=1 ;;
+    -a | --setup-automations) setup_automations=1 ;;
+    -b | --bundle-homebrew)   bundle_homebrew=1 ;;
+    -c | --clone-repos)       clone_repos=1 ;;
+    -d | --link-dotfiles)     link_dotfiles=1 ;;
+    -p | --source-macos-pref) source_prefs=1 ;;
+    -f | --fresh) 
+      setup_automations=1
+      bundle_homebrew=1
+      clone_repos=1
+      link_dotfiles=1
+      source_prefs=1
+      ;;
+    # -p | --param) # example named parameter
+    #   param="${2-}"
+    #   shift
+    #   ;;
+    -?*) die "Unknown option: $1" ;;
+    *) break ;;
+    esac
+    shift
+  done
+
+  args=("$@")
+
+  # check required params and arguments
+  # [[ -z "${param-}" ]] && die "Missing required parameter: param"
+  # [[ ${#args[@]} -eq 0 ]] && die "Missing script arguments"
+
+  return 0
+}
+
+info() {
+  msg "${CYAN}$1${NOFORMAT}"
+}
+
+warn() {
+  msg "${YELLOW}$1${NOFORMAT}"
+}
+
+success() {
+  msg "${GREEN}$1${NOFORMAT}"
+}
+
+parse_params "$@"
+setup_colors
+
+DOTFILES="$HOME/.dotfiles"
+LIBRARY="$HOME/Library"
+SITES="$HOME/Sites"
+VAULT="$HOME/Vault"
+
+AUTOMATION="$DOTFILES/automation"
+
+info "Setting up your Mac..."
+
+get_brewing() {
+  info "Installing apps and dependencies from Homebrew..."
+  warn "This is gonna be a while ☕️"
+
+  # Check for Homebrew and install if we don't have it
+  if test ! "$(which brew)"; then
+    warn "Homebrew not installed, brazenly piping curl into our shell"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+  fi
+
+  brew update
+  brew tap homebrew/bundle
+  brew bundle
+
+  success "Homebrew apps and dependencies installed successfully 🍻"
+}
+
+clone_repos() {
+  # Check out all my active repos
+  info "Cloning repos..."
+
+  mkdir "$SITES"
+  mkdir "$VAULT"
+
+  # Personal
+  git clone https://github.com/kslgrd/obsidian.git $HOME/Vault
+
+  # Work
+
+  success "All repos were cloned successfully 😎"
+}
+
+link_dotfiles() {
+  info "Linking dotfiles..."
+
+  # Removes .zshrc from $HOME (if it exists) and symlinks the .zshrc file from the .dotfiles
+  rm -rf "$HOME/.zshrc"
+  ln -s "$DOTFILES/.zshrc" "$HOME/.zshrc"
+
+  # Symlink all the things
+  ln -s "$DOTFILES/.mackup.cfg" "$HOME/.mackup.cfg"
+  ln -s "$DOTFILES/.gitignore_global" ".gitignore_global"
+
+  success "Dotfiles all linked up"
+}
+
+setup_automations() {
+  info "Setting up automations..."
+
+  # Make scripts executable
+  find "$DOTFILES/scripts/*" -exec bash -c 'chmod u+x "$0"' {} \;
+
+  LOGS="$LIBRARY/Logs/Dotfiles"
+  mkdir -p "$LOGS"
+
+  touch "$LOGS/backup-vault.error.log"
+  touch "$LOGS/backup-vault.output.log"
+
+  for src in $(find -H "$AUTOMATION" -name '*.plist' -not -path '*.git*')
+  do
+    dest="$LIBRARY/LaunchAgents/$(basename "$src")"
+    ln -s "$src" "$dest"
+    launchctl load "$dest"
+  done
+  success "Automations are automating"
+}
+
+source_macos_prefs() {
+  info "Setting macOS preferences"
+  warn "This will reload your shell"
+
+  source .macos
+}
+
+bundle_homebrew && get_brewing
+clone_repos && clone_repos
+link_dotfiles && link_dotfiles
+setup_automations && setup_automations
+source_prefs && source_macos_prefs
