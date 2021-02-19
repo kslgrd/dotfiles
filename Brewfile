@@ -21,6 +21,7 @@ brew 'tree'
 
 # Dev
 brew 'jq'
+brew 'navi'
 brew 'nvm'
 brew 'pandoc'
 brew 'rbenv'
