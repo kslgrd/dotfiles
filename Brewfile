@@ -3,6 +3,7 @@ tap 'homebrew/cask'
 tap 'homebrew/cask-fonts'
 tap 'homebrew/cask-versions'
 tap 'homebrew/bundle'
+tap 'dbcli/tap'
 
 # Binaries
 brew 'azure-cli'
@@ -21,6 +22,7 @@ brew 'tree'
 
 # Dev
 brew 'jq'
+brew 'litecli'
 brew 'navi'
 brew 'nvm'
 brew 'pandoc'
