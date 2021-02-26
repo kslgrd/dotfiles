@@ -159,6 +159,7 @@ link_dotfiles() {
   ln -s "$DOTFILES/.zshrc" "$HOME/.zshrc"
 
   # Symlink all the things
+  ln -s "$DOTFILES/.config" "$HOME/.config"
   ln -s "$DOTFILES/.mackup.cfg" "$HOME/.mackup.cfg"
   ln -s "$DOTFILES/.gitignore_global" ".gitignore_global"
 
