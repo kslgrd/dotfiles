@@ -11,6 +11,15 @@ export DOTFILES=$HOME/.dotfiles
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
+# Configuring Completions in zsh
+# To make Homebrew’s completions available in zsh, you must get the Homebrew-managed 
+# zsh site-functions on your FPATH before initialising zsh’s completion facility.
+# This must be done before compinit is called. Note that if you are using Oh My Zsh, 
+# it will call compinit for you, so this must be done before you call oh-my-zsh.sh.
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+fi
+
 # Enable completions
 autoload -Uz compinit && compinit
 
