@@ -6,6 +6,7 @@ tap 'homebrew/bundle'
 tap 'dbcli/tap'
 
 # Utilities
+brew 'colordiff'
 brew 'coreutils'
 brew 'figlet'
 brew 'grep'
