@@ -3,7 +3,9 @@ tap 'homebrew/cask'
 tap 'homebrew/cask-fonts'
 tap 'homebrew/cask-versions'
 tap 'homebrew/bundle'
+
 tap 'dbcli/tap'
+tap 'teamookla/speedtest'
 
 # Utilities
 brew 'colordiff'
@@ -28,6 +30,7 @@ brew 'navi'
 brew 'nvm'
 brew 'pandoc'
 brew 'rbenv'
+brew 'speedtest'
 brew 'tldr'
 
 # Apps
