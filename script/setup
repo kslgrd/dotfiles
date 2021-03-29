@@ -144,7 +144,7 @@ clone_repos() {
   mkdir "$VAULT"
 
   # Personal
-  git clone https://github.com/kslgrd/obsidian.git $HOME/Vault
+  git clone https://github.com/kslgrd/obsidian.git "$HOME/Vault"
 
   # Work
 
