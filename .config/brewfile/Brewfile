@@ -5,9 +5,11 @@ tap 'homebrew/cask-versions'
 tap 'homebrew/bundle'
 
 tap 'dbcli/tap'
+tap 'hashicorp/tap'
 tap 'teamookla/speedtest'
 
 # Utilities
+brew 'ack'
 brew 'colordiff'
 brew 'coreutils'
 brew 'figlet'
@@ -17,20 +19,25 @@ brew 'jq'
 brew 'lolcat'
 brew 'mackup'
 brew 'mas'
+brew 'nmap'
 brew 'source-highlight'
+brew 'speedtest'
 brew 'tree'
+brew 'wget'
 
 # Dev
 brew 'azure-cli'
 brew 'awscli'
 brew 'gh'
 brew 'git'
+brew 'hashicorp/tap/terraform'
+brew 'hashicorp/tap/nomad'
+brew 'kubectl'
 brew 'litecli'
 brew 'navi'
 brew 'nvm'
 brew 'pandoc'
 brew 'rbenv'
-brew 'speedtest'
 brew 'tldr'
 
 # Apps
@@ -54,7 +61,9 @@ cask 'slack'
 cask 'sequel-pro'
 cask 'soundsource'
 cask 'spotify'
+cask 'vagrant'
 cask 'visual-studio-code'
+cask 'virtualbox'
 
 # Fonts
 cask 'font-source-code-pro-for-powerline'
@@ -69,6 +78,7 @@ mas 'ColorSlurp', id: 1287239339
 mas 'DuckDuckGo Privacy Essentials', id: 1482920575 
 mas 'GIPHY CAPTURE', id: 668208984
 mas 'Keynote', id: 409183694
+mas 'Klokki Slim - Time Tracking', id: 1459795140
 mas 'MindNode', id: 1289197285
 mas 'Numbers', id: 409203825 
 mas 'Pages', id: 409201541 
