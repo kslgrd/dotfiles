@@ -11,6 +11,9 @@ export DOTFILES=$HOME/.dotfiles
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
+# Fix for gpg signing git commits
+export GPG_TTY=$(tty)
+
 # Configuring Completions in zsh
 # To make Homebrew’s completions available in zsh, you must get the Homebrew-managed 
 # zsh site-functions on your FPATH before initialising zsh’s completion facility.

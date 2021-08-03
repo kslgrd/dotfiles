@@ -38,6 +38,7 @@ brew 'navi'
 brew 'nvm'
 brew 'pandoc'
 brew 'rbenv'
+brew 'svn' # only used for installing powerline font
 brew 'tldr'
 
 # Apps
@@ -50,6 +51,7 @@ cask 'db-browser-for-sqlite'
 cask 'docker'
 cask 'fantastical'
 cask 'firefox'
+cask 'gpg-suite'
 cask 'iterm2'
 cask 'google-chrome'
 cask 'microsoft-edge'
@@ -64,6 +66,8 @@ cask 'spotify'
 cask 'vagrant'
 cask 'visual-studio-code'
 cask 'virtualbox'
+cask 'whatsapp'
+cask 'zoom'
 
 # Fonts
 cask 'font-source-code-pro-for-powerline'

@@ -51,13 +51,14 @@ die() {
   exit "$code"
 }
 
-parse_params() {
   # default values of variables set from params
   setup_automations=0
   bundle_homebrew=0
   clone_repos=0
   link_dotfiles=0
   source_prefs=0
+
+parse_params() {
 
   while :; do
     case "${1-}" in
@@ -131,7 +132,7 @@ get_brewing() {
 
   brew update
   brew tap homebrew/bundle
-  brew bundle
+  brew bundle --file "$DOTFILES/.config/brewfile/Brewfile"
 
   success "Homebrew apps and dependencies installed successfully 🍻"
 }
@@ -140,11 +141,11 @@ clone_repos() {
   # Check out all my active repos
   info "Cloning repos..."
 
-  mkdir "$SITES"
-  mkdir "$VAULT"
+  mkdir -p "$SITES"
+  mkdir -p "$VAULT"
 
   # Personal
-  git clone https://github.com/kslgrd/obsidian.git "$HOME/Vault"
+  git clone git@github.com:kslgrd/obsidian.git "$HOME/Vault"
 
   # Work
 
@@ -161,19 +162,21 @@ link_dotfiles() {
   # Symlink all the things
   ln -s "$DOTFILES/.config" "$HOME/.config"
   ln -s "$DOTFILES/.mackup.cfg" "$HOME/.mackup.cfg"
-  ln -s "$DOTFILES/.gitignore_global" ".gitignore_global"
+  ln -s "$DOTFILES/.gitignore_global" "$HOME/.gitignore_global"
 
   success "Dotfiles all linked up"
 }
 
 setup_automations() {
   info "Setting up automations..."
+  
 
   # Make scripts executable
-  find "$DOTFILES/scripts/*" -exec bash -c 'chmod u+x "$0"' {} \;
+  find "$DOTFILES/script" -type f -exec bash -c 'chmod u+x "$0"' {} \;
 
   LOGS="$LIBRARY/Logs/Dotfiles"
   mkdir -p "$LOGS"
+  mkdir -p "$LIBRARY/LaunchAgents"
 
   touch "$LOGS/backup-vault.error.log"
   touch "$LOGS/backup-vault.output.log"
@@ -194,8 +197,8 @@ source_macos_prefs() {
   source .macos
 }
 
-bundle_homebrew && get_brewing
-clone_repos && clone_repos
-link_dotfiles && link_dotfiles
-setup_automations && setup_automations
-source_prefs && source_macos_prefs
+# get_brewing
+# clone_repos
+# link_dotfiles
+setup_automations
+# source_macos_prefs
