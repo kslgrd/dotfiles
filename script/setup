@@ -195,6 +195,12 @@ setup_automations() {
   success "Automations are automating"
 }
 
+one_offs_and_prefs() {
+  # Tell iTerm2 to use custom preferences
+  defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "~/.dotfiles/.config/iterm2"
+  defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
+}
+
 source_macos_prefs() {
   info "Setting macOS preferences"
   warn "This will reload your shell"
