@@ -80,10 +80,10 @@ plugins=(
 aws
 git
 gem
-heroku
 httpie
 rails
 rbenv
+zsh-autosuggestions
 )
 
 source $ZSH/oh-my-zsh.sh

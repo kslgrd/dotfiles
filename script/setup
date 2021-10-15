@@ -144,6 +144,10 @@ clone_repos() {
   mkdir -p "$SITES"
   mkdir -p "$VAULT"
 
+  # ZSH theme and plugins
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+  git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
   # Personal
   git clone git@github.com:kslgrd/obsidian.git "$HOME/Vault"
 
@@ -161,7 +165,8 @@ link_dotfiles() {
 
   # Symlink all the things
   ln -s "$DOTFILES/.config" "$HOME/.config"
-  ln -s "$DOTFILES/.mackup.cfg" "$HOME/.mackup.cfg"
+  # ln -s "$DOTFILES/.mackup.cfg" "$HOME/.mackup.cfg" # not sure I want to use mackup... 
+  ln -s "$DOTFILES/.config/git/config" "$HOME/.gitconfig"
   ln -s "$DOTFILES/.gitignore_global" "$HOME/.gitignore_global"
 
   success "Dotfiles all linked up"
@@ -200,5 +205,5 @@ source_macos_prefs() {
 # get_brewing
 # clone_repos
 # link_dotfiles
-setup_automations
-# source_macos_prefs
+# setup_automations
+source_macos_prefs
