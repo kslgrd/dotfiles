@@ -37,3 +37,6 @@
   prereleaseSuffix = .beta
   prereleaseSuffix = -rc
   prereleaseSuffix = .rc
+
+[includeIf "gitdir:~/Sites/"]
+    path = ~/Sites/.gitconfig
