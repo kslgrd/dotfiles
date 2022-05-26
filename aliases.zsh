@@ -5,6 +5,7 @@ alias copypubkey="pbcopy < $HOME/.ssh/id_rsa.pub"
 alias ll="/usr/local/opt/coreutils/libexec/gnubin/ls -AhlFo --color --group-directories-first"
 alias reloadshell="source $HOME/.zshrc"
 alias reloaddns="dscacheutil -flushcache && sudo killall -HUP mDNSResponder"
+alias brewbundle="brew bundle --file \"$DOTFILES/.config/brewfile/Brewfile\""
 
 # Directories
 alias dotfiles="cd $DOTFILES"
