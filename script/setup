@@ -120,6 +120,18 @@ AUTOMATION="$DOTFILES/automation"
 
 info "Setting up your Mac..."
 
+get_devbox() {
+  info "Installing devbox..."
+
+  # Check for Homebrew and install if we don't have it
+  if test ! "$(which devbox)"; then
+    warn "Devbox not installed, brazenly piping curl into our shell"
+    /bin/bash -c "$(curl -fsSL https://get.jetpack.io/devbox)"
+  fi
+
+  success "Devbox installed"
+}
+
 get_brewing() {
   info "Installing apps and dependencies from Homebrew..."
   warn "This is gonna be a while ☕️"
@@ -205,8 +217,9 @@ source_macos_prefs() {
   source .macos
 }
 
-# get_brewing
-# clone_repos
-# link_dotfiles
-# setup_automations
+get_brewing
+get_devbox
+clone_repos
+link_dotfiles
+setup_automations
 source_macos_prefs
