@@ -123,7 +123,13 @@ info "Setting up your Mac..."
 get_devbox() {
   info "Installing devbox..."
 
-  # Check for Homebrew and install if we don't have it
+  # Check for Nix and install if we don't have it
+  if test ! "$(which nix)"; then
+    warn "Nix not installed, brazenly piping curl into our shell"
+    /bin/bash -c "$(curl -L https://nixos.org/nix/install)"
+  fi
+
+  # Check for Debox and install if we don't have it
   if test ! "$(which devbox)"; then
     warn "Devbox not installed, brazenly piping curl into our shell"
     /bin/bash -c "$(curl -fsSL https://get.jetpack.io/devbox)"
