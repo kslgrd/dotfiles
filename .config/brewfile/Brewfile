@@ -5,40 +5,31 @@ tap 'homebrew/cask-versions'
 tap 'homebrew/bundle'
 
 tap 'dbcli/tap'
-tap 'hashicorp/tap'
 tap 'teamookla/speedtest'
 
 # Utilities
 brew 'ack'
 brew 'colordiff'
 brew 'coreutils'
-brew 'figlet'
+brew 'figlet' # ASCII art generator
 brew 'grep'
-brew 'httpie'
 brew 'jq'
-brew 'lolcat'
-brew 'mackup'
-brew 'mas'
-brew 'nmap'
+brew 'lolcat' # Like cat, but with rainbow colors
+brew 'mas' # Mac App Store CLI
+brew 'nmap' # Port scanning
 brew 'source-highlight'
 brew 'speedtest'
 brew 'tree'
 brew 'wget'
 
 # Dev
-brew 'adr-tools'
+brew 'adr-tools' # Arch Doc Records
 brew 'azure-cli'
 brew 'awscli'
 brew 'gh'
 brew 'git'
-brew 'hashicorp/tap/terraform'
-brew 'hashicorp/tap/nomad'
 brew 'kubectl'
-brew 'litecli'
-brew 'navi'
-brew 'nvm'
-brew 'pandoc'
-brew 'rbenv'
+brew 'litecli' # SQLite CLI https://litecli.com
 brew 'svn' # only used for installing powerline font
 brew 'tldr'
 brew 'zsh-autosuggestions'
@@ -66,9 +57,7 @@ cask 'slack'
 cask 'sequel-pro'
 cask 'soundsource'
 cask 'spotify'
-cask 'vagrant'
 cask 'visual-studio-code'
-cask 'virtualbox'
 cask 'whatsapp'
 cask 'zoom'
 
@@ -92,5 +81,4 @@ mas 'Pages', id: 409201541
 mas 'Pixelmator', id: 407963104
 mas 'Save to Pocket', id: 1477385213
 mas 'Soulver', id: 413965349
-mas 'Tab Space', id: 1473726602
 mas 'Yoink', id: 457622435
