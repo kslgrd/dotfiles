@@ -80,9 +80,7 @@ plugins=(
 aws
 git
 gem
-httpie
 rails
-rbenv
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -125,3 +123,5 @@ source "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.z
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export HOMEBREW_BUNDLE_FILE=$DOTFILES/.config/brewfile/Brewfile
