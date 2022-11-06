@@ -183,9 +183,6 @@ setup_automations() {
   mkdir -p "$LOGS"
   mkdir -p "$LIBRARY/LaunchAgents"
 
-  touch "$LOGS/backup-vault.error.log"
-  touch "$LOGS/backup-vault.output.log"
-
   for src in $(find -H "$AUTOMATION" -name '*.plist' -not -path '*.git*')
   do
     dest="$LIBRARY/LaunchAgents/$(basename "$src")"
