@@ -1,4 +1,6 @@
-# Path to your dotfiles.
+export HISTSIZE=1000000000
+export SAVEHIST=$HISTSIZE
+
 export DOTFILES=$HOME/.dotfiles
 
 # Fix for gpg signing git commits
@@ -17,8 +19,10 @@ fi
 
 export HOMEBREW_BUNDLE_FILE=$DOTFILES/.config/brewfile/Brewfile
 
-eval "$(starship init zsh)"
-
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#6C7A7C"
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+setopt EXTENDED_HISTORY
+setopt autocd
 autoload -Uz compinit && compinit
+
+eval "$(starship init zsh)"
+source <(fzf --zsh)
+source "$DOTFILES/aliases.zsh"

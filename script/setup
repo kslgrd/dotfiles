@@ -8,7 +8,7 @@ trap cleanup SIGINT SIGTERM ERR EXIT
 
 usage() {
   cat <<EOF
-Usage: $(basename "${BASH_SOURCE[0]}") [-h] [-v] [-f] [-a] [-b] [-c] [-d] [-p]
+Usage: $(basename "${BASH_SOURCE[0]}") [-h] [-v] [-f] [-b] [-d] [-x]
 
 Setup your computer with all your dotfile junk.
 
@@ -18,11 +18,9 @@ Available options:
 -v, --verbose   Print script debug info
 -f, --fresh     Do everything (for setting up new machines)
 
--a, --setup-automations    Enable all Launchd agents
 -b, --bundle-homebrew      Install Homebrew apps and dependencies
--c, --clone-repos          Clone git repos
 -d, --link-dotfiles        Symlink dotfiles
--p, --source-macos-prefs   Source macOS prefs (reloads shell)
+-x, --install-devbox       Install Devbox
 EOF
   exit
 }
@@ -52,11 +50,9 @@ die() {
 }
 
   # default values of variables set from params
-  setup_automations=0
   bundle_homebrew=0
-  clone_repos=0
+  install_devbox=0
   link_dotfiles=0
-  source_prefs=0
 
 parse_params() {
 
@@ -65,17 +61,13 @@ parse_params() {
     -h | --help) usage ;;
     -v | --verbose) set -x ;;
     --no-color) NO_COLOR=1 ;;
-    -a | --setup-automations) setup_automations=1 ;;
     -b | --bundle-homebrew)   bundle_homebrew=1 ;;
-    -c | --clone-repos)       clone_repos=1 ;;
     -d | --link-dotfiles)     link_dotfiles=1 ;;
-    -p | --source-macos-pref) source_prefs=1 ;;
+    -x | --install-devbox)    install_devbox=1 ;;
     -f | --fresh) 
-      setup_automations=1
       bundle_homebrew=1
-      clone_repos=1
+      install_devbox=1
       link_dotfiles=1
-      source_prefs=1
       ;;
     # -p | --param) # example named parameter
     #   param="${2-}"
@@ -112,11 +104,6 @@ parse_params "$@"
 setup_colors
 
 DOTFILES="$HOME/.dotfiles"
-LIBRARY="$HOME/Library"
-SITES="$HOME/Sites"
-VAULT="$HOME/Vault"
-
-AUTOMATION="$DOTFILES/automation"
 
 info "Setting up your Mac..."
 
@@ -152,29 +139,14 @@ get_brewing() {
   brew tap homebrew/bundle
   brew bundle --file "$DOTFILES/.config/brewfile/Brewfile"
 
+  # Install fzf keybindings and completion
+  info "Setting up fzf..."
+  "$(brew --prefix)/opt/fzf/install" --key-bindings --completion --no-update-rc
+
   success "Homebrew apps and dependencies installed successfully 🍻"
 }
 
-clone_repos() {
-  # Check out all my active repos
-  info "Cloning repos..."
-
-  mkdir -p "$SITES"
-  mkdir -p "$VAULT"
-
-  # ZSH theme and plugins
-  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-  git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-
-  # Personal
-  git clone git@github.com:kslgrd/obsidian.git "$HOME/Vault"
-
-  # Work
-
-  success "All repos were cloned successfully 😎"
-}
-
-link_dotfiles() {
+setup_dotfiles() {
   info "Linking dotfiles..."
 
   # Removes .zshrc from $HOME (if it exists) and symlinks the .zshrc file from the .dotfiles
@@ -190,42 +162,17 @@ link_dotfiles() {
   success "Dotfiles all linked up"
 }
 
-setup_automations() {
-  info "Setting up automations..."
-  
+# Execute setup steps based on flags
+if [[ $bundle_homebrew -eq 1 ]]; then
+  get_brewing
+fi
 
-  # Make scripts executable
-  find "$DOTFILES/script" -type f -exec bash -c 'chmod u+x "$0"' {} \;
+if [[ $install_devbox -eq 1 ]]; then
+  get_devbox
+fi
 
-  LOGS="$LIBRARY/Logs/Dotfiles"
-  mkdir -p "$LOGS"
-  mkdir -p "$LIBRARY/LaunchAgents"
+if [[ $link_dotfiles -eq 1 ]]; then
+  setup_dotfiles
+fi
 
-  for src in $(find -H "$AUTOMATION" -name '*.plist' -not -path '*.git*')
-  do
-    dest="$LIBRARY/LaunchAgents/$(basename "$src")"
-    ln -s "$src" "$dest"
-    launchctl load "$dest"
-  done
-  success "Automations are automating"
-}
-
-one_offs_and_prefs() {
-  # Tell iTerm2 to use custom preferences
-  defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "~/.dotfiles/.config/iterm2"
-  defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
-}
-
-source_macos_prefs() {
-  info "Setting macOS preferences"
-  warn "This will reload your shell"
-
-  source .macos
-}
-
-get_brewing
-get_devbox
-clone_repos
-link_dotfiles
-setup_automations
-source_macos_prefs
+success "\nSetup complete! 🎉"
