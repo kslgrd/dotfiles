@@ -15,6 +15,7 @@ brew 'nmap' # Port scanning
 brew 'source-highlight'
 brew 'tree'
 brew 'wget'
+brew 'zoxide' # "smarter" cd
 
 # Video transcoding
 brew 'handbrake'
