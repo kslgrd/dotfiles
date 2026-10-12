@@ -25,5 +25,5 @@ In VS Code settings: `"dotfiles.repository": "kslgrd/dotfiles"`. Containers clon
 | Path | Purpose |
 | --- | --- |
 | `.zshrc`, `aliases.zsh` | shell |
-| `.config/{git,starship.toml,tmux,iterm2}` | tool config, linked by `install.sh` |
+| `.config/{git,starship.toml,tmux}` | tool config, linked by `install.sh` |
 | `.config/brewfile/Brewfile` | everything installed via Homebrew |
