@@ -1,20 +1,8 @@
-# Shortcuts
-alias brewbundle="brew bundle --cleanup --file \"$DOTFILES/.config/brewfile/Brewfile\""
-alias brewcleanup="brew bundle cleanup --force --file \"$DOTFILES/.config/brewfile/Brewfile\""
 alias c="clear"
-alias cdiff="colordiff -y -s -w"
-alias copypubkey="pbcopy < $HOME/.ssh/id_rsa.pub"
-alias ll="/usr/local/opt/coreutils/libexec/gnubin/ls -AhlFo --color --group-directories-first"
+alias ll="ls -AhlFG"
 alias reloadshell="source $HOME/.zshrc"
-alias reloaddns="dscacheutil -flushcache && sudo killall -HUP mDNSResponder"
-
-# Directories
 alias dotfiles="cd $DOTFILES"
-alias library="cd $HOME/Library"
-alias sites="cd $HOME/Sites"
-alias vault="cd $HOME/Vault"
 
-# Functions
-cless() {
-  LESSOPEN='| source-highlight --failsafe --out-format=esc256 -o STDOUT -i %s 2>/dev/null ' less -R "$@"
-}
+# Homebrew: update deliberately, review what's outdated before upgrading
+alias brewup="brew update && brew outdated"
+alias brewsync="brew bundle install && brew bundle cleanup"   # cleanup is a dry run; add --force to apply

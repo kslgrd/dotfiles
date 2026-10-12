@@ -1,5 +1,1 @@
-themes/powerlevel10k
-.config/configstore
-.config/litecli/history
-.config/litecli/log
-.config/mozilla/vpn.moz
+.DS_Store

@@ -1,73 +1,31 @@
-# Taps
-tap 'homebrew/bundle'
-
-# Utilities
-brew 'ack'
-brew 'colordiff'
-brew 'coreutils'
-brew 'figlet' # ASCII art generator
+# Terminal
 brew 'fzf'
-brew 'grep'
-brew 'jq'
-brew 'lolcat' # Like cat, but with rainbow colors
-brew 'mas' # Mac App Store CLI
-brew 'nmap' # Port scanning
-brew 'source-highlight'
-brew 'tree'
-brew 'wget'
-brew 'zoxide' # "smarter" cd
-
-# Video transcoding
-brew 'handbrake'
-brew 'ffmpeg'
-brew 'mkvtoolnix'
-brew 'mp4v2'
-
-# Dev
 brew 'git'
+brew 'jq'
 brew 'starship'
-brew 'tldr'
+brew 'tlrc'
+brew 'tmux'
+brew 'zoxide' # smarter cd
+
+# Dev (everything else lives in Dev Containers / Docker Sandbox)
+cask 'docker-desktop'
+cask 'iterm2'
+cask 'visual-studio-code'
 
 # Apps
 cask '1password'
 cask '1password-cli'
-cask 'alfred'
-cask 'dash'
-cask 'db-browser-for-sqlite'
-cask 'docker-desktop'
-cask 'figma'
 cask 'firefox'
-cask 'iterm2'
 cask 'google-chrome'
-cask 'microsoft-auto-update'
-cask 'graphql-playground'
-cask 'microsoft-edge'
-cask 'microsoft-teams'
+cask 'figma'
 cask 'obsidian'
-cask 'sequel-pro'
-cask 'soundsource'
-cask 'visual-studio-code'
 cask 'whatsapp'
 cask 'zoom'
 
-# Fonts
-cask 'font-sauce-code-pro-nerd-font' # extra glyphs for terminal
-cask 'font-source-code-pro'
+# Work (mostly used on the work machine)
+cask 'microsoft-auto-update'
+cask 'microsoft-edge'
+cask 'microsoft-teams'
 
-# Mac App Store
-mas '1Password for Safari', id: 1569813296
-# mas 'Calca', id: 635758264 # I use Soulver nowadays
-mas 'Capo', id: 696977615
-mas 'ColorSlurp', id: 1287239339
-mas 'DuckDuckGo Privacy Essentials', id: 1482920575 
-mas 'GIPHY CAPTURE', id: 668208984
-mas 'Keynote', id: 409183694
-# mas 'Klokki Slim - Time Tracking', id: 1459795140
-mas 'MindNode', id: 1289197285
-mas 'Numbers', id: 409203825 
-mas 'Pages', id: 409201541 
-# mas 'Pixelmator', id: 407963104
-# mas 'Save to Pocket', id: 1477385213
-mas 'Soulver', id: 413965349
-mas 'XMind: Mind Mapping', id: 1327661892
-mas 'Yoink', id: 457622435
+# Fonts
+cask 'font-sauce-code-pro-nerd-font' # glyphs for starship
