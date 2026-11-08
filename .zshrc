@@ -25,4 +25,4 @@ fi
 source "$DOTFILES/aliases.zsh"
 
 # Welcome banner, interactive shells only
-[[ -o interactive ]] && (( $+commands[clolcat] )) && clolcat -f "$DOTFILES/banner.txt"
+[[ -o interactive ]] && (( $+commands[lolcat] )) && lolcat --force "$DOTFILES/banner.txt"
