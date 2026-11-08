@@ -25,4 +25,4 @@ fi
 source "$DOTFILES/aliases.zsh"
 
 # Welcome banner, interactive shells only
-[[ -o interactive ]] && (( $+commands[toilet] )) && toilet --gay -f letter -- "HomeBot"
+[[ -o interactive ]] && (( $+commands[clolcat] )) && clolcat -f "$DOTFILES/banner.txt"
