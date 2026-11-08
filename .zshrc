@@ -23,3 +23,6 @@ fi
 (( $+commands[zoxide] ))   && eval "$(zoxide init zsh)"
 (( $+commands[fzf] ))      && source <(fzf --zsh 2>/dev/null)
 source "$DOTFILES/aliases.zsh"
+
+# Welcome banner, interactive shells only
+[[ -o interactive ]] && (( $+commands[fastfetch] )) && fastfetch
