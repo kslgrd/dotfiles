@@ -16,5 +16,4 @@ link "$D/.config/git/config"        "$HOME/.config/git/config"
 link "$D/.config/git/ignore"        "$HOME/.config/git/ignore"
 link "$D/.config/starship.toml"     "$HOME/.config/starship.toml"
 link "$D/.config/tmux/tmux.conf"    "$HOME/.config/tmux/tmux.conf"
-link "$D/.config/fastfetch/config.jsonc" "$HOME/.config/fastfetch/config.jsonc"
 exit 0

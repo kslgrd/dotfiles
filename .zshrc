@@ -25,4 +25,4 @@ fi
 source "$DOTFILES/aliases.zsh"
 
 # Welcome banner, interactive shells only
-[[ -o interactive ]] && (( $+commands[fastfetch] )) && fastfetch
+[[ -o interactive ]] && (( $+commands[toilet] )) && toilet --gay -f letter -- "HomeBot"
