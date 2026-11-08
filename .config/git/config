@@ -1,8 +1,6 @@
 [user]
   email = keith@thesilgards.com
   name = Keith Silgard
-[core]
-  editor = code --wait
 [init]
   defaultBranch = main
 [color]
